@@ -19,6 +19,11 @@ public class NoteBehavior : MonoBehaviour
 
     }
 
+    public void Initialize()
+    {
+        judge = GameManager.judges.NONE;
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -27,7 +32,7 @@ public class NoteBehavior : MonoBehaviour
         if (Input.GetKey(keyCode))
         {
             Debug.Log(judge);
-            if (judge != GameManager.judges.NONE) Destroy(gameObject);
+            if (judge != GameManager.judges.NONE) gameObject.SetActive(false);
         }
     }
 
@@ -48,7 +53,7 @@ public class NoteBehavior : MonoBehaviour
         else if (collision.gameObject.tag == "Miss Line")
         {
             judge = GameManager.judges.MISS;
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
         Debug.Log(judge);
 
