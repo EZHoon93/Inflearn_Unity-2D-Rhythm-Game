@@ -34,9 +34,25 @@ public class GameManager : MonoBehaviour
     private Image judgeSpriteRenderer;
     private Animator judgeSpriteAnimator;
 
+    private AudioSource audioSource;
+    public string music = "1";  //음악 파일 이름, 텍스트파일 이름이랑 같게
+
+    //리소스폴더에 음악 을 갖고오고 실행. 
+    void MusicStart()
+    {
+        AudioClip audioClip = Resources.Load<AudioClip>("Beats/" + music);
+        audioSource = GetComponent<AudioSource>();
+        audioSource.clip = audioClip;
+        audioSource.Play();
+    }
+
 
     private void Start()
     {
+        //2초뒤 음악을 갖고오고 실행
+        Invoke("MusicStart", 2);
+
+
         trailSpriteRenderes = new SpriteRenderer[trails.Length];
         judgeSpriteRenderer = judgeUI.GetComponent<Image>();
         judgeSpriteAnimator = judgeUI.GetComponent<Animator>();
@@ -75,7 +91,7 @@ public class GameManager : MonoBehaviour
 
     }
 
-
+    //해당 키를 누르면 그부분 빛나게한다. 
     public void ShineTrail(int index)
     {
         Color color = trailSpriteRenderes[index].color;
@@ -137,6 +153,7 @@ public class GameManager : MonoBehaviour
             combo += 1;
             score += (float)combo * 0.1f;
         }
+        //UI, 콤보 및 점수를 반영된것을 보여준다.
         ShowJudgement();
 
     }
