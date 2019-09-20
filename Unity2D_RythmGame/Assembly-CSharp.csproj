@@ -64,9 +64,11 @@
   <ItemGroup>
     <Compile Include="Assets\Script\BackGroundBehavior.cs" />
     <Compile Include="Assets\Script\GameManager.cs" />
+    <Compile Include="Assets\Script\Gun.cs" />
     <Compile Include="Assets\Script\NoteBehavior.cs" />
     <Compile Include="Assets\Script\NoteController.cs" />
     <Compile Include="Assets\Script\ObjectPooler.cs" />
+    <Compile Include="Assets\Script\Projectile.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>C:/Users/toon8/Desktop/MyUnityFolder/Unity2D-RythmGame/Unity-2D-Rhythm-Game/Unity2D_RythmGame/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
