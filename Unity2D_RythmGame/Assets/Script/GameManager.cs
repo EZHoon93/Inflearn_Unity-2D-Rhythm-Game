@@ -21,11 +21,12 @@ public class GameManager : MonoBehaviour
     private SpriteRenderer[] trailSpriteRenderes;
 
     public GameObject scoreUI;
-    private float score;
+    public float score;
     private Text scoreText;
 
     public GameObject comboUI;
     private int combo;
+    public int maxCombo;
     private Text comboText;
     private Animator comboAnimator;
 
@@ -35,12 +36,14 @@ public class GameManager : MonoBehaviour
     private Animator judgeSpriteAnimator;
 
     private AudioSource audioSource;
-    public string music = "1";  //음악 파일 이름, 텍스트파일 이름이랑 같게
+    //public string music = "1";  //음악 파일 이름, 텍스트파일 이름이랑 같게
+    //자동 판정 모드
+    public bool autoPerfect;
 
     //리소스폴더에 음악 을 갖고오고 실행. 
     void MusicStart()
     {
-        AudioClip audioClip = Resources.Load<AudioClip>("Beats/" + music);
+        AudioClip audioClip = Resources.Load<AudioClip>("Beats/" + PlayerInformation.selectedMusic);
         audioSource = GetComponent<AudioSource>();
         audioSource.clip = audioClip;
         audioSource.Play();
@@ -113,6 +116,10 @@ public class GameManager : MonoBehaviour
         {
             comboText.text = "COMBO " + combo.ToString();
             comboAnimator.SetTrigger("Show");
+        }
+        if(maxCombo < combo)
+        {
+            maxCombo = combo; 
         }
     }
 

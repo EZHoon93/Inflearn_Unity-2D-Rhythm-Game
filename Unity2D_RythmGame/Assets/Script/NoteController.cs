@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class NoteController : MonoBehaviour
 {
@@ -66,7 +67,7 @@ public class NoteController : MonoBehaviour
 
         //리소스에서 비트 텍스트 파일을 불러옵니다
 
-        TextAsset textAsset = Resources.Load<TextAsset>("Beats/" + GameManager.instance.music);
+        TextAsset textAsset = Resources.Load<TextAsset>("Beats/" + PlayerInformation.selectedMusic);
         //alt + enter 로 iO임포트.
         StringReader reader = new StringReader(textAsset.text);
         //첫번째 줄을 읽는다
@@ -103,7 +104,25 @@ public class NoteController : MonoBehaviour
         {
             StartCoroutine(AwaitMakeNote(notes[i]));
         }
-        
+        //마지막 노트를 기준으로게임종료 함수를 불러옵니다
+        StartCoroutine(AwaitGameResult(notes[notes.Count - 1].order));
+
+    }
+
+    IEnumerator AwaitGameResult(int order)
+    {
+        //8초뒤 게임결과
+        yield return new WaitForSeconds(startingPoint + order * beatInterval + 8.0f);
+        GameResult();
+    }
+
+    void GameResult()
+    {
+        PlayerInformation.maxCombo = GameManager.instance.maxCombo;
+        PlayerInformation.socre = GameManager.instance.score;
+        PlayerInformation.musicTitle = musicTitle;
+        PlayerInformation.musicArtist = musicArtist;
+        SceneManager.LoadScene("GameResult");
     }
 
     // Update is called once per frame
