@@ -71,16 +71,20 @@ public class SongSelectManager : MonoBehaviour
                 //해당 곡이 무료곡인경우
                 if(snapshot == null || !snapshot.Exists)
                 {
+                    Debug.Log("무료 곡");
                     disabled = false;
                     disablePanelUI.gameObject.SetActive(false);
                     disableAlertUI.text = "";
                     startUI.gameObject.SetActive(true);
+                    Debug.Log("무료 곡2");
+
                 }
                 else
                 {
                     //현재 사용자가 구매한 이력이 있는경우 곡을 플레이 할수 있습니다
                     if (snapshot.Child(PlayerInformation.auth.CurrentUser.UserId).Exists)
                     {
+                        Debug.Log("구매한 곡");
                         disabled = false;
                         disablePanelUI.gameObject.SetActive(false);
                         disableAlertUI.text = "";
@@ -90,6 +94,7 @@ public class SongSelectManager : MonoBehaviour
                     //사용자가 해당 곡을 구매했는지 확인하여 처리합니다
                     if (disabled)
                     {
+                        Debug.Log("구매하지 않은 곡");
                         purchasButtonUI.gameObject.SetActive(true);
                         disableAlertUI.text = "플레이할수없는 곡입니다";
                         startUI.gameObject.SetActive(false);
